@@ -1,0 +1,12 @@
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+target/
+.settings/
+.project
+.classpath
+.factorypath
+.idea/
+*.iml
+.vscode/
+.DS_Store
