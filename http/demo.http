@@ -1,0 +1,71 @@
+### Primer proyecto
+GET http://localhost:8080/json
+
+###
+GET http://localhost:8080/app
+
+### Módulo 1: servlet
+GET http://localhost:8080/saludo?nombre=Ana
+
+### Módulo 1: controlador REST
+GET http://localhost:8080/api/hola?nombre=Ana
+
+### Módulo 1: controlador con vista (HTML)
+GET http://localhost:8080/vista/hola?nombre=Ana
+
+### REST: lista
+GET http://localhost:8080/api/demo/data
+
+### REST: por id
+GET http://localhost:8080/api/demo/data/1
+
+### REST: por id inexistente (404)
+GET http://localhost:8080/api/demo/data/99
+
+### REST: filtro por parámetro
+GET http://localhost:8080/api/demo/data/query?name=dos
+
+### REST: crear (201 + Location)
+POST http://localhost:8080/api/demo/data
+Content-Type: application/json
+
+{"id": 4, "name": "Cuatro"}
+
+### REST: reemplazar
+PUT http://localhost:8080/api/demo/data/1
+Content-Type: application/json
+
+{"name": "Uno actualizado"}
+
+### REST: modificar parcialmente
+PATCH http://localhost:8080/api/demo/data/1
+Content-Type: application/json
+
+{"name": "Nuevo nombre"}
+
+### REST: eliminar
+DELETE http://localhost:8080/api/demo/data/1
+
+### GraphQL: libro por id
+POST http://localhost:8080/graphql
+Content-Type: application/json
+
+{"query": "{ libroPorId(id: \"1\") { titulo autor } }"}
+
+### GraphQL: todos los libros
+POST http://localhost:8080/graphql
+Content-Type: application/json
+
+{"query": "{ todosLosLibros { id titulo } }"}
+
+### GraphQL: todos los productos
+POST http://localhost:8080/graphql
+Content-Type: application/json
+
+{"query": "{ todosLosProductos { id nombre precio } }"}
+
+### GraphQL: libros y productos en una sola petición
+POST http://localhost:8080/graphql
+Content-Type: application/json
+
+{"query": "{ todosLosLibros { titulo } todosLosProductos { nombre precio } }"}

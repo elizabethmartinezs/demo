@@ -1,13 +1,20 @@
 # demo
 
-Proyecto demo del curso **Java + Spring** (Axity). Spring Boot 4.0.5, Java 17+, Gradle (Groovy DSL) con Gradle Wrapper.
+Proyecto demo del curso **Java + Spring** (Axity). Spring Boot 4.0.5, Java 21, Gradle (Groovy DSL) con Gradle Wrapper.
 
-## Cómo abrirlo en Eclipse (Spring Tools)
+## Cómo abrirlo en IntelliJ IDEA
 
-1. `File > Import > Maven > Existing Maven Projects` y selecciona esta carpeta.
-2. Espera a que Maven descargue las dependencias (primera vez, requiere internet).
-3. Clic derecho en `DemoApplication` > `Run As > Spring Boot App`.
-4. Pruebas: `./gradlew test` en terminal.
+1. `File > Open` y selecciona esta carpeta (o el `build.gradle`) > `Open as Project`.
+2. Espera a que IntelliJ importe el proyecto Gradle y descargue las dependencias
+   (primera vez, requiere internet). Verifica en `File > Project Structure` que el SDK sea Java 21.
+3. Abre `DemoApplication` y pulsa la flecha verde junto a `main` > `Run`.
+4. Pruebas: clic derecho en `src/test/java` > `Run 'All Tests'`, o `./gradlew test` en la terminal
+   integrada (`View > Tool Windows > Terminal`).
+5. Peticiones: abre `http/demo.http` y pulsa la flecha verde de cada petición
+   (cliente HTTP de IntelliJ), o importa la colección de `postman/` en Postman.
+
+> Si usas IntelliJ IDEA con soporte de Spring (Ultimate), el asistente
+> `File > New > Project > Spring Boot` genera el mismo proyecto que start.spring.io.
 
 ## Un commit por bloque de la presentación
 
@@ -47,8 +54,8 @@ git checkout main               # volver a la versión completa
 | POST | `/graphql` | Cuerpo `{"query":"{ libroPorId(id: \"1\") { titulo } }"}` |
 | — | `/graphiql` | Consola GraphQL en el navegador |
 
-En `postman/` hay una colección con todas estas peticiones
-(`File > Import` en Postman).
+En `http/demo.http` están todas estas peticiones para el cliente HTTP de IntelliJ,
+y en `postman/` la misma colección para Postman (`File > Import`).
 
 ## Comandos de Gradle
 
