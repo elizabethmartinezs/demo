@@ -1,0 +1,11 @@
+type Query {
+    libroPorId(id: ID): Libro
+    todosLosLibros: [Libro]
+}
+
+type Libro {
+    id: ID
+    titulo: String
+    autor: String
+    paginas: Int
+}
