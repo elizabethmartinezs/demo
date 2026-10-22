@@ -35,6 +35,7 @@ git checkout main               # volver a la versión completa
 | `bloque-4-graphql` | GraphQL | Starter, `schema.graphqls`, `LibroController` |
 | `bloque-5-pruebas-unitarias` | Pruebas unitarias | `DemoService`, Mockito, `@WebMvcTest` |
 | `bloque-6-pruebas-integracion` | Pruebas de integración | `@SpringBootTest` + `@AutoConfigureMockMvc` |
+| `bloque-7-paginacion-y-mutaciones` | Paginación y mutaciones | Paginación REST y GraphQL, `@MutationMapping`, `@GraphQlTest` |
 
 ## Endpoints (http://localhost:8080)
 
@@ -56,6 +57,32 @@ git checkout main               # volver a la versión completa
 
 En `http/demo.http` están todas estas peticiones para el cliente HTTP de IntelliJ,
 y en `postman/` la misma colección para Postman (`File > Import`).
+
+## Bloque 7: paginación y mutaciones
+
+Paginación REST (la página empieza en 0; una página fuera de rango regresa `contenido` vacío):
+
+| Método | Ruta | Ejemplo |
+|---|---|---|
+| GET | `/api/demo/data/paginado?pagina=0&tamanio=2` | `{"contenido":[...],"pagina":0,"tamanio":2,"totalElementos":3,"totalPaginas":2}` |
+| GET | `/api/demo/data/paginado?pagina=0&tamanio=0` | 400 `{"message":"pagina debe ser >= 0 y tamanio >= 1"}` |
+
+La ruta literal `/data/paginado` tiene prioridad sobre `/data/{id}`, así que `/api/demo/data/1` sigue funcionando.
+
+GraphQL (`POST /graphql` o la consola `/graphiql`). Los nombres GraphQL no admiten ñ ni acentos, por eso `tamanio`:
+
+```graphql
+{ librosPaginados(pagina: 0, tamanio: 2) { contenido { id titulo } totalElementos totalPaginas } }
+
+mutation { crearLibro(input: { titulo: "El túnel", autor: "Sabato", paginas: 160 }) { id titulo } }
+
+mutation { actualizarLibro(id: "1", input: { titulo: "Don Quijote de la Mancha", autor: "Cervantes", paginas: 1200 }) { id titulo } }
+
+mutation { eliminarLibro(id: "2") }   # true si lo eliminó, false si no existía
+```
+
+`crearLibro` asigna ids desde 7; `actualizarLibro` regresa `null` si el id no existe.
+Las pruebas están en `LibroControllerTest` (`@GraphQlTest` + `GraphQlTester`).
 
 ## Comandos de Gradle
 

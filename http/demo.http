@@ -69,3 +69,33 @@ POST http://localhost:8080/graphql
 Content-Type: application/json
 
 {"query": "{ todosLosLibros { titulo } todosLosProductos { nombre precio } }"}
+
+### Bloque 7: REST paginado
+GET http://localhost:8080/api/demo/data/paginado?pagina=0&tamanio=2
+
+### Bloque 7: REST paginado inválido (400)
+GET http://localhost:8080/api/demo/data/paginado?pagina=0&tamanio=0
+
+### Bloque 7: GraphQL libros paginados
+POST http://localhost:8080/graphql
+Content-Type: application/json
+
+{"query": "{ librosPaginados(pagina: 0, tamanio: 2) { contenido { id titulo } pagina totalElementos totalPaginas } }"}
+
+### Bloque 7: GraphQL crear libro
+POST http://localhost:8080/graphql
+Content-Type: application/json
+
+{"query": "mutation { crearLibro(input: { titulo: \"El túnel\", autor: \"Sabato\", paginas: 160 }) { id titulo autor paginas } }"}
+
+### Bloque 7: GraphQL actualizar libro
+POST http://localhost:8080/graphql
+Content-Type: application/json
+
+{"query": "mutation { actualizarLibro(id: \"1\", input: { titulo: \"Don Quijote de la Mancha\", autor: \"Cervantes\", paginas: 1200 }) { id titulo paginas } }"}
+
+### Bloque 7: GraphQL eliminar libro
+POST http://localhost:8080/graphql
+Content-Type: application/json
+
+{"query": "mutation { eliminarLibro(id: \"2\") }"}

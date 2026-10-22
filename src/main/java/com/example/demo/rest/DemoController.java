@@ -43,6 +43,16 @@ public class DemoController {
         return service.buscar(id);   // si no existe responde 404 (ver manejador abajo)
     }
 
+    /**
+     * Bloque 7 - paginación. La ruta literal /data/paginado tiene prioridad sobre /data/{id}.
+     * GET http://localhost:8080/api/demo/data/paginado?pagina=0&tamanio=2
+     */
+    @GetMapping(path = "/data/paginado")
+    public PaginaDemo paginar(@RequestParam(defaultValue = "0") int pagina,
+                              @RequestParam(defaultValue = "2") int tamanio) {
+        return service.paginar(pagina, tamanio);   // parámetros inválidos responden 400
+    }
+
     @GetMapping(path = "/data/query")
     public List<Demo> getDemosByParam(
             @RequestParam(name = "id", required = false) Integer id,
@@ -96,5 +106,11 @@ public class DemoController {
     @ExceptionHandler(DemoNoEncontradoException.class)
     public ResponseEntity<Message> noEncontrado() {
         return new ResponseEntity<>(new Message("No existe"), HttpStatus.NOT_FOUND);
+    }
+
+    /** Bloque 7 - parámetros inválidos (por ejemplo tamanio=0) se responden como 400 con el mensaje. */
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<Message> argumentoInvalido(IllegalArgumentException e) {
+        return new ResponseEntity<>(new Message(e.getMessage()), HttpStatus.BAD_REQUEST);
     }
 }

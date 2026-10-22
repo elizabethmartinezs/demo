@@ -339,6 +339,169 @@
           }
         }
       ]
+    },
+    {
+      "name": "Bloque 7: paginación y mutaciones",
+      "item": [
+        {
+          "name": "GET paginado",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/demo/data/paginado?pagina=0&tamanio=2",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "demo",
+                "data",
+                "paginado"
+              ],
+              "query": [
+                {
+                  "key": "pagina",
+                  "value": "0"
+                },
+                {
+                  "key": "tamanio",
+                  "value": "2"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "GET paginado inválido (400)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/demo/data/paginado?pagina=0&tamanio=0",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "demo",
+                "data",
+                "paginado"
+              ],
+              "query": [
+                {
+                  "key": "pagina",
+                  "value": "0"
+                },
+                {
+                  "key": "tamanio",
+                  "value": "0"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "librosPaginados",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/graphql",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "graphql"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"{ librosPaginados(pagina: 0, tamanio: 2) { contenido { id titulo } pagina totalElementos totalPaginas } }\"\n}"
+            }
+          }
+        },
+        {
+          "name": "crearLibro",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/graphql",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "graphql"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"mutation { crearLibro(input: { titulo: \\\"El túnel\\\", autor: \\\"Sabato\\\", paginas: 160 }) { id titulo autor paginas } }\"\n}"
+            }
+          }
+        },
+        {
+          "name": "actualizarLibro",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/graphql",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "graphql"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"mutation { actualizarLibro(id: \\\"1\\\", input: { titulo: \\\"Don Quijote de la Mancha\\\", autor: \\\"Cervantes\\\", paginas: 1200 }) { id titulo paginas } }\"\n}"
+            }
+          }
+        },
+        {
+          "name": "eliminarLibro",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/graphql",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "graphql"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"mutation { eliminarLibro(id: \\\"2\\\") }\"\n}"
+            }
+          }
+        }
+      ]
     }
   ]
 }

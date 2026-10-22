@@ -1,6 +1,8 @@
 type Query {
     libroPorId(id: ID): Libro
     todosLosLibros: [Libro]
+    # Bloque 7 - paginación. GraphQL no admite ñ ni acentos en los nombres: "tamanio"
+    librosPaginados(pagina: Int = 0, tamanio: Int = 2): PaginaLibros
 }
 
 type Libro {
@@ -8,4 +10,29 @@ type Libro {
     titulo: String
     autor: String
     paginas: Int
+}
+
+# Bloque 7 - una página de libros:
+#   { librosPaginados(pagina: 0, tamanio: 2) { contenido { titulo } totalPaginas } }
+type PaginaLibros {
+    contenido: [Libro]
+    pagina: Int
+    tamanio: Int
+    totalElementos: Int
+    totalPaginas: Int
+}
+
+# Bloque 7 - datos de entrada de crearLibro y actualizarLibro
+input LibroInput {
+    titulo: String!
+    autor: String!
+    paginas: Int!
+}
+
+# Bloque 7 - registro, edición y eliminación:
+#   mutation { crearLibro(input: { titulo: "El túnel", autor: "Sabato", paginas: 160 }) { id } }
+type Mutation {
+    crearLibro(input: LibroInput!): Libro
+    actualizarLibro(id: ID!, input: LibroInput!): Libro
+    eliminarLibro(id: ID!): Boolean
 }
